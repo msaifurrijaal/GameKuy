@@ -49,6 +49,13 @@ class HomeFragment : Fragment() {
         seeAllGames()
     }
 
+    private fun onMainPosterClick(id: Int) {
+        binding.ivMainPoster.setOnClickListener {
+            startActivity(Intent(activity, GameActivity::class.java)
+                .putExtra(GAME_ID, id))
+        }
+    }
+
     private fun seeAllGames() {
         binding.tvSeeAll.setOnClickListener {
             startActivity(Intent(activity, AllGameActivity::class.java))
@@ -73,7 +80,7 @@ class HomeFragment : Fragment() {
                 .into(binding.ivMainPoster)
 
             binding.tvMainPosterTitleGame.text = games[randomInt].title
-
+            onMainPosterClick(randomInt)
         })
     }
 

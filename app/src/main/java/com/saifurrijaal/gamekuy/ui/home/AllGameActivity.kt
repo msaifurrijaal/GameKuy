@@ -25,6 +25,13 @@ class AllGameActivity : AppCompatActivity() {
         setAllGamesRV()
         observerAllGames()
         onItemGameClick()
+        closeActivity()
+    }
+
+    private fun closeActivity() {
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun onItemGameClick() {

@@ -6,11 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.AllGameActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="All Games"
+        app:navigationIcon="@drawable/ic_close"
+        app:titleTextColor="@color/white"
+        app:navigationIconTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <TextView
         android:id="@+id/tv_all_games"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Games"
+        android:text="Find your favorite game"
         android:fontFamily="@font/poppins_bold"
         android:textStyle="bold"
         android:textSize="@dimen/h5"
@@ -18,7 +32,7 @@
         android:layout_marginStart="@dimen/normal_125"
         android:layout_marginTop="@dimen/normal_100"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_all_games"
