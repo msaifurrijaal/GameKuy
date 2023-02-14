@@ -16,7 +16,7 @@
         android:theme="@style/Theme.GameKuy"
         tools:targetApi="31">
         <activity
-            android:name=".GameCategoryActivity"
+            android:name=".ui.category.GameCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.AllGameActivity"

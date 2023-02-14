@@ -32,6 +32,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
             .into(holder.binding.ivGame)
 
         holder.binding.tvGameTitle.text = category.name
+
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(category)
+        }
     }
 
     override fun getItemCount(): Int = categoryList.size

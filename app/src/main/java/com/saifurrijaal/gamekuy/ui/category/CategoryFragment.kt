@@ -1,5 +1,6 @@
 package com.saifurrijaal.gamekuy.ui.category
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,10 @@ class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
     private var list: ArrayList<Category> = arrayListOf()
     private lateinit var categoryAdapter: CategoryAdapter
+
+    companion object {
+        const val CATEGORY = "com.saifurrijaal.gamekuy.ui.category.categoryName"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,14 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setCategoryRV()
+        onCategoryItemClick()
+    }
+
+    private fun onCategoryItemClick() {
+        categoryAdapter.onItemClick = {
+            startActivity(Intent(activity, GameCategoryActivity::class.java)
+                .putExtra(CATEGORY, it.name))
+        }
     }
 
     private fun setCategoryRV() {

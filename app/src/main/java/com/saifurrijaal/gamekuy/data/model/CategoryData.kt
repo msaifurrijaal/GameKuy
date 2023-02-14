@@ -11,7 +11,7 @@ object CategoryData {
         "Racing",
         "Sports",
         "Space",
-        "Battle Royal"
+        "Battle-Royale"
     )
 
     private val categoryPhoto = intArrayOf(
