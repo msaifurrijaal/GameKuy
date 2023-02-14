@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface GameApiService {
 
     @GET("games")
-    suspend fun getListGames() : Call<List<GameResponseItem>>
+    suspend fun getListGames() : List<GameResponseItem>
 
     @GET("games")
     fun getListByCategories(@Query("category") categoryName: String) : Call<List<GameResponseItem>>

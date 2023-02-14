@@ -10,32 +10,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GameRepository(private val gameDao: GameDao, ) {
+class GameRepository(private val gameDao: GameDao ) {
 
     private lateinit var gamesData: List<GameResponseItem>
 
     val games = gameDao.getGames()
 
+    fun getGameItem(gameId: Int) : List<GameResponseItem> {
+        var game = gameDao.getGame(gameId)
+        return game
+    }
+
     suspend fun refreshGame() {
         withContext(Dispatchers.IO) {
-            RetrofitInstance.getApiService().getListGames().enqueue(object :
-                Callback<List<GameResponseItem>> {
-                override fun onResponse(
-                    call: Call<List<GameResponseItem>>,
-                    response: Response<List<GameResponseItem>>
-                ) {
-                    if (response.isSuccessful) {
-                        gamesData = response.body()!!
-                    } else {
-                        Log.e("GamesRepository", "onFailure : ${response.message()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<GameResponseItem>>, t: Throwable) {
-                    Log.e("GameRepository", "onFailure : ${t.message.toString()}")
-                }
-            })
-            gameDao.upsertMeal(gamesData!!)
+            val games = RetrofitInstance.getApiService().getListGames()
+            gameDao.upsertMeal(games)
         }
     }
 }

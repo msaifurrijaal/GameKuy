@@ -7,11 +7,13 @@ import com.bumptech.glide.Glide
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.ItemGameBinding
 
-class AllGamesAdapter() : RecyclerView.Adapter<AllGamesAdapter.ViewHolder>() {
+class AllGamesAdapter : RecyclerView.Adapter<AllGamesAdapter.ViewHolder>() {
+
+    lateinit var onItemClick: ((GameResponseItem) -> Unit)
 
     private var gamesList = ArrayList<GameResponseItem>()
 
-    fun setMeals(gamesList: List<GameResponseItem>) {
+    fun setGames(gamesList: List<GameResponseItem>) {
         this.gamesList.clear()
         this.gamesList.addAll(gamesList)
         notifyDataSetChanged()
@@ -31,6 +33,10 @@ class AllGamesAdapter() : RecyclerView.Adapter<AllGamesAdapter.ViewHolder>() {
 
         holder.binding.tvGameTitle.text = game.title
         holder.binding.tvGameGenre.text = "Genre : ${game.genre}"
+
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(game)
+        }
 
     }
 

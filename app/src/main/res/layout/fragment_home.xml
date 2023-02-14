@@ -57,7 +57,7 @@
                         android:id="@+id/iv_main_poster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         tools:src="@tools:sample/backgrounds/scenic"/>
 
                     <androidx.cardview.widget.CardView
@@ -65,11 +65,13 @@
                         android:layout_height="@dimen/large_125"
                         app:cardCornerRadius="@dimen/normal_75"
                         android:layout_gravity="right|bottom"
+                        android:gravity="center"
                         android:layout_marginEnd="@dimen/normal_125"
                         android:layout_marginBottom="@dimen/normal_125"
                         app:cardBackgroundColor="@color/colorPrimary" >
 
                         <TextView
+                            android:id="@+id/tv_main_poster_title_game"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:text="Overwatch"
@@ -99,9 +101,22 @@
                 app:layout_constraintStart_toStartOf="@+id/cv_home"
                 app:layout_constraintTop_toBottomOf="@+id/cv_home" />
 
+            <TextView
+                android:id="@+id/tv_see_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="see all"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_100"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_list_games"
+                app:layout_constraintEnd_toEndOf="@+id/cv_home"
+                app:layout_constraintTop_toTopOf="@+id/tv_list_games" />
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_games"
-                android:layout_width="416dp"
+                android:layout_width="wrap_content"
                 android:layout_height="213dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -146,7 +161,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
-                        android:layout_height="@dimen/large_125"
+                        android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/normal_75"
                         android:layout_gravity="right|bottom"
                         android:layout_marginEnd="@dimen/normal_125"
@@ -194,7 +209,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
-                        android:layout_height="@dimen/large_125"
+                        android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/normal_75"
                         android:layout_gravity="right|bottom"
                         android:layout_marginEnd="@dimen/normal_125"

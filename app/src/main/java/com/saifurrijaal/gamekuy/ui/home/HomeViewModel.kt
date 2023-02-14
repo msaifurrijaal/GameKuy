@@ -10,7 +10,9 @@ import com.saifurrijaal.gamekuy.data.database.GameDao
 import com.saifurrijaal.gamekuy.data.database.GameDatabase
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.repository.GameRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,12 +43,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         _allGames = gameRepository.games
-    }
-
-    fun getGameDetail(id: Int) {
-        viewModelScope.launch {
-            _games.value = gameDao.getGame(id)[0]
-        }
     }
 
 }

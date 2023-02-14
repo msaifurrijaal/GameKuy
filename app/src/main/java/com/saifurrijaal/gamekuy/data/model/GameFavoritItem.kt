@@ -1,6 +1,7 @@
 package com.saifurrijaal.gamekuy.data.model
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "gameFavoritItem")
@@ -31,6 +32,7 @@ data class GameFavoritItem (
     val developer: String? = null,
 
     @field:SerializedName("id")
+    @PrimaryKey
     val id: Int? = null,
 
     @field:SerializedName("title")
