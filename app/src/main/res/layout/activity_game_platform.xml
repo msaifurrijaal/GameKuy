@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.AllGameActivity">
+    tools:context=".ui.category.GameCategoryActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="All Games"
         android:background="@color/colorPrimary"
+        app:title="Game by Platform"
         app:navigationIcon="@drawable/ic_close"
         app:titleTextColor="@color/white"
         app:navigationIconTint="@color/white"
@@ -22,17 +22,19 @@
 
     <TextView
         android:id="@+id/tv_all_games"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Find your favorite game"
-        android:fontFamily="@font/poppins_bold"
-        android:textStyle="bold"
-        android:textSize="@dimen/h5"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/normal_125"
         android:layout_marginTop="@dimen/normal_100"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Find your favorite game"
+        android:textColor="@color/black"
+        android:textSize="@dimen/h5"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginStart="@dimen/normal_125"
+        android:layout_marginEnd="@dimen/normal_125"/>
 
     <TextView
         android:id="@+id/tv_tagline"

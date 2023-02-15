@@ -13,6 +13,8 @@ import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.FragmentHomeBinding
 import com.saifurrijaal.gamekuy.ui.gamedetail.GameActivity
+import com.saifurrijaal.gamekuy.ui.platform.GamePlatformActivity
+import com.saifurrijaal.gamekuy.util.Constant
 import kotlin.random.Random
 
 
@@ -22,10 +24,6 @@ class HomeFragment : Fragment() {
     private lateinit var allGamesAdapter: AllGamesAdapter
     private lateinit var listGameHome: List<GameResponseItem>
     val homeMvvm by viewModels<HomeViewModel>()
-
-    companion object {
-        const val GAME_ID = "com.saifurrijaal.gamekuy.ui.home.idGame"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +45,26 @@ class HomeFragment : Fragment() {
         observerAllGames()
         onItemGameClick()
         seeAllGames()
+        onPlatformClick()
+    }
+
+    private fun onPlatformClick() {
+        binding.apply {
+            cvPlatform1.setOnClickListener {
+                startActivity(Intent(activity, GamePlatformActivity::class.java)
+                    .putExtra(Constant.PLATFORM, "pc"))
+            }
+            cvPlatform2.setOnClickListener {
+                startActivity(Intent(activity, GamePlatformActivity::class.java)
+                    .putExtra(Constant.PLATFORM, "browser"))
+            }
+        }
     }
 
     private fun onMainPosterClick(id: Int) {
         binding.ivMainPoster.setOnClickListener {
             startActivity(Intent(activity, GameActivity::class.java)
-                .putExtra(GAME_ID, id))
+                .putExtra(Constant.GAME_ID, id))
         }
     }
 
@@ -65,7 +77,7 @@ class HomeFragment : Fragment() {
     private fun onItemGameClick() {
         allGamesAdapter.onItemClick = {
             startActivity(Intent(activity, GameActivity::class.java)
-                .putExtra(GAME_ID, it.id))
+                .putExtra(Constant.GAME_ID, it.id))
         }
     }
 

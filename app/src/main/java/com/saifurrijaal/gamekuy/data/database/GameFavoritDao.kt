@@ -8,10 +8,10 @@ import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 interface GameFavoritDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertMeal(games: GameResponseItem)
+    suspend fun upsertGame(games: GameResponseItem)
 
     @Delete
-    suspend fun deleteNote(games: GameResponseItem)
+    suspend fun deleteGame(games: GameResponseItem)
 
     @Query("SELECT * FROM gameItem")
     fun getGames() : LiveData<List<GameResponseItem>>

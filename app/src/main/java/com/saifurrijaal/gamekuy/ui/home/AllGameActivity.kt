@@ -10,6 +10,7 @@ import com.saifurrijaal.gamekuy.R
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
 import com.saifurrijaal.gamekuy.databinding.ActivityAllGameBinding
 import com.saifurrijaal.gamekuy.ui.gamedetail.GameActivity
+import com.saifurrijaal.gamekuy.util.Constant
 
 class AllGameActivity : AppCompatActivity() {
 
@@ -38,7 +39,7 @@ class AllGameActivity : AppCompatActivity() {
         allGamesAdapter.onItemClick = {
             startActivity(
                 Intent(this, GameActivity::class.java)
-                .putExtra(HomeFragment.GAME_ID, it.id))
+                .putExtra(Constant.GAME_ID, it.id))
         }
     }
 

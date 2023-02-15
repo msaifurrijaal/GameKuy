@@ -12,16 +12,13 @@ import com.saifurrijaal.gamekuy.adapter.CategoryAdapter
 import com.saifurrijaal.gamekuy.data.model.Category
 import com.saifurrijaal.gamekuy.data.model.CategoryData
 import com.saifurrijaal.gamekuy.databinding.FragmentCategoryBinding
+import com.saifurrijaal.gamekuy.util.Constant
 
 class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private var list: ArrayList<Category> = arrayListOf()
     private lateinit var categoryAdapter: CategoryAdapter
-
-    companion object {
-        const val CATEGORY = "com.saifurrijaal.gamekuy.ui.category.categoryName"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +46,7 @@ class CategoryFragment : Fragment() {
     private fun onCategoryItemClick() {
         categoryAdapter.onItemClick = {
             startActivity(Intent(activity, GameCategoryActivity::class.java)
-                .putExtra(CATEGORY, it.name))
+                .putExtra(Constant.CATEGORY, it.name))
         }
     }
 
