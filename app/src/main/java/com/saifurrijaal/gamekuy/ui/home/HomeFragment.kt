@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.FragmentHomeBinding
-import com.saifurrijaal.gamekuy.ui.gamedetail.GameActivity
+import com.saifurrijaal.gamekuy.ui.gamedetail.GameDetailActivity
 import com.saifurrijaal.gamekuy.ui.platform.GamePlatformActivity
 import com.saifurrijaal.gamekuy.util.Constant
 import kotlin.random.Random
@@ -63,8 +63,9 @@ class HomeFragment : Fragment() {
 
     private fun onMainPosterClick(id: Int) {
         binding.ivMainPoster.setOnClickListener {
-            startActivity(Intent(activity, GameActivity::class.java)
-                .putExtra(Constant.GAME_ID, id))
+            startActivity(Intent(activity, GameDetailActivity::class.java)
+                .putExtra(Constant.GAME_ID, id)
+                .putExtra(Constant.TYPE_INTENT, Constant.GAME_CACHE))
         }
     }
 
@@ -76,8 +77,10 @@ class HomeFragment : Fragment() {
 
     private fun onItemGameClick() {
         allGamesAdapter.onItemClick = {
-            startActivity(Intent(activity, GameActivity::class.java)
-                .putExtra(Constant.GAME_ID, it.id))
+            startActivity(Intent(activity, GameDetailActivity::class.java)
+                .putExtra(Constant.GAME_ID, it.id)
+                .putExtra(Constant.TYPE_INTENT, Constant.GAME_CACHE)
+            )
         }
     }
 

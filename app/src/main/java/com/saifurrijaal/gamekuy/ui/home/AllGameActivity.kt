@@ -3,18 +3,19 @@ package com.saifurrijaal.gamekuy.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.saifurrijaal.gamekuy.R
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
+import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.ActivityAllGameBinding
-import com.saifurrijaal.gamekuy.ui.gamedetail.GameActivity
+import com.saifurrijaal.gamekuy.ui.gamedetail.GameDetailActivity
 import com.saifurrijaal.gamekuy.util.Constant
 
 class AllGameActivity : AppCompatActivity() {
 
-    val gameMvvm by viewModels<HomeViewModel>()
+    val viewModel by viewModels<HomeViewModel>()
     private lateinit var binding: ActivityAllGameBinding
     private lateinit var allGamesAdapter: AllGamesAdapter
 
@@ -23,10 +24,12 @@ class AllGameActivity : AppCompatActivity() {
         binding = ActivityAllGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loadingCase()
         setAllGamesRV()
         observerAllGames()
         onItemGameClick()
         closeActivity()
+
     }
 
     private fun closeActivity() {
@@ -38,14 +41,19 @@ class AllGameActivity : AppCompatActivity() {
     private fun onItemGameClick() {
         allGamesAdapter.onItemClick = {
             startActivity(
-                Intent(this, GameActivity::class.java)
-                .putExtra(Constant.GAME_ID, it.id))
+                Intent(this, GameDetailActivity::class.java)
+                    .putExtra(Constant.GAME_ID, it.id)
+                    .putExtra(Constant.TYPE_INTENT, Constant.GAME_CACHE)
+            )
         }
     }
 
     private fun observerAllGames() {
-        gameMvvm.allGames.observe(this, { games ->
-            allGamesAdapter.setGames(games)
+        viewModel.allGames.observe(this, object : Observer<List<GameResponseItem>> {
+            override fun onChanged(games: List<GameResponseItem>?) {
+                responseCase()
+                allGamesAdapter.setGames(games!!)
+            }
         })
     }
 
@@ -54,6 +62,20 @@ class AllGameActivity : AppCompatActivity() {
         binding.rvAllGames.apply {
             layoutManager = LinearLayoutManager(this@AllGameActivity, LinearLayoutManager.VERTICAL, false)
             adapter = allGamesAdapter
+        }
+    }
+
+    private fun loadingCase() {
+        binding.apply {
+            rvAllGames.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        }
+    }
+
+    private fun responseCase() {
+        binding.apply {
+            rvAllGames.visibility = View.VISIBLE
+            progressBar.visibility = View.INVISIBLE
         }
     }
 }

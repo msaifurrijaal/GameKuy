@@ -3,13 +3,14 @@ package com.saifurrijaal.gamekuy.ui.platform
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
+import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.ActivityGamePlatformBinding
 import com.saifurrijaal.gamekuy.ui.gamedetail.GameDetailActivity
-import com.saifurrijaal.gamekuy.ui.home.HomeFragment
 import com.saifurrijaal.gamekuy.util.Constant
 
 class GamePlatformActivity : AppCompatActivity() {
@@ -29,6 +30,7 @@ class GamePlatformActivity : AppCompatActivity() {
         val vmFactory = GamePlatformVMFactory(platformGame)
         viewModel = ViewModelProvider(this, vmFactory).get(GamePlatformViewModel::class.java)
 
+        loadingCase()
         setGamePlatformRV()
         observerAllGamesByPlatform()
         onItemPlatformGameClick()
@@ -41,6 +43,7 @@ class GamePlatformActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, GameDetailActivity::class.java)
                     .putExtra(Constant.GAME_ID, it.id)
+                    .putExtra(Constant.TYPE_INTENT, Constant.GAME_API)
             )
         }
     }
@@ -52,8 +55,11 @@ class GamePlatformActivity : AppCompatActivity() {
     }
 
     private fun observerAllGamesByPlatform() {
-        viewModel.gamePlatform.observe(this, Observer { games ->
-            gamePlatformAdapter.setGames(games)
+        viewModel.gamePlatform.observe(this, object : Observer<List<GameResponseItem>> {
+            override fun onChanged(games: List<GameResponseItem>?) {
+                responseCase()
+                gamePlatformAdapter.setGames(games!!)
+            }
         })
     }
 
@@ -69,4 +75,19 @@ class GamePlatformActivity : AppCompatActivity() {
     private fun receivePlatformFromIntent() {
         platformGame = intent.getStringExtra(Constant.PLATFORM)!!
     }
+
+    private fun loadingCase() {
+        binding.apply {
+            rvAllGames.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        }
+    }
+
+    private fun responseCase() {
+        binding.apply {
+            rvAllGames.visibility = View.VISIBLE
+            progressBar.visibility = View.INVISIBLE
+        }
+    }
+
 }

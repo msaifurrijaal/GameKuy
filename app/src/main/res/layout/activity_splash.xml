@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GAMESKUY!"
+            android:text="GAMEKUY!"
             android:textSize="40sp"
             android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"

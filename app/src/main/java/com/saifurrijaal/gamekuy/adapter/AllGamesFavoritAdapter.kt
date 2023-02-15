@@ -4,25 +4,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.saifurrijaal.gamekuy.data.model.GameFavoritItem
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
-import com.saifurrijaal.gamekuy.databinding.ListItemGameBinding
+import com.saifurrijaal.gamekuy.databinding.ItemGameBinding
+import com.saifurrijaal.gamekuy.databinding.ListItemGameFavoriteBinding
 
-class AllGamesAdapter : RecyclerView.Adapter<AllGamesAdapter.ViewHolder>() {
+class AllGamesFavoritAdapter : RecyclerView.Adapter<AllGamesFavoritAdapter.ViewHolder>() {
 
-    lateinit var onItemClick: ((GameResponseItem) -> Unit)
+    lateinit var onItemClick: ((GameFavoritItem) -> Unit)
+    lateinit var onDeleteClick: ((GameFavoritItem) -> Unit)
 
-    private var gamesList = ArrayList<GameResponseItem>()
+    private var gamesList = ArrayList<GameFavoritItem>()
 
-    fun setGames(gamesList: List<GameResponseItem>) {
+    fun setGames(gamesList: List<GameFavoritItem>) {
         this.gamesList.clear()
         this.gamesList.addAll(gamesList)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(var binding: ListItemGameBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: ListItemGameFavoriteBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ListItemGameBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(ListItemGameFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,6 +39,10 @@ class AllGamesAdapter : RecyclerView.Adapter<AllGamesAdapter.ViewHolder>() {
 
         holder.itemView.setOnClickListener {
             onItemClick.invoke(game)
+        }
+
+        holder.binding.btnDelete.setOnClickListener {
+            onDeleteClick.invoke(game)
         }
     }
 

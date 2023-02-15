@@ -1,6 +1,7 @@
 package com.saifurrijaal.gamekuy.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.saifurrijaal.gamekuy.data.database.GameDao
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.data.remote.RetrofitInstance
@@ -14,9 +15,9 @@ class GameRepository(private val gameDao: GameDao ) {
 
     private lateinit var gamesData: List<GameResponseItem>
 
-    val games = gameDao.getGames()
+    val allGames = gameDao.getGames()
 
-    fun getGameItem(gameId: Int) : List<GameResponseItem> {
+    fun getGameItem(gameId: Int) : LiveData<List<GameResponseItem>> {
         var game = gameDao.getGame(gameId)
         return game
     }

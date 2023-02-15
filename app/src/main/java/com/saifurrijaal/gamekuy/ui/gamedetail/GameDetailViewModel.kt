@@ -7,6 +7,7 @@ import com.saifurrijaal.gamekuy.data.database.GameDao
 import com.saifurrijaal.gamekuy.data.database.GameDatabase
 import com.saifurrijaal.gamekuy.data.database.GameFavoritDao
 import com.saifurrijaal.gamekuy.data.model.GameDetailResponse
+import com.saifurrijaal.gamekuy.data.model.GameFavoritItem
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.data.remote.RetrofitInstance
 import com.saifurrijaal.gamekuy.repository.GameFavoritRepository
@@ -21,9 +22,20 @@ class GameDetailViewModel(private var id: Int, application: Application) : Andro
     private val gameFavoritRepository : GameFavoritRepository
     private val gameFavoritDao : GameFavoritDao
 
-    private val _gameDetail = MutableLiveData<GameDetailResponse>()
-    val gameDetail : LiveData<GameDetailResponse>
-        get() = _gameDetail
+    private val gameRepository : GameRepository
+    private val gameDao : GameDao
+
+    private val _gameDetailApi = MutableLiveData<GameDetailResponse>()
+    val gameDetailApi : LiveData<GameDetailResponse>
+        get() = _gameDetailApi
+
+    private var _gameDetailCache : LiveData<List<GameResponseItem>>
+    val gameDetailCache : LiveData<List<GameResponseItem>>
+        get() = _gameDetailCache
+
+    private var _gameDetailFavorit : LiveData<List<GameFavoritItem>>
+    val gameDetailFavorit : LiveData<List<GameFavoritItem>>
+        get() = _gameDetailFavorit
 
     init {
         getDetailGame()
@@ -31,6 +43,12 @@ class GameDetailViewModel(private var id: Int, application: Application) : Andro
         gameFavoritDao = GameDatabase.getInstance(application).gameFavoritDao()
         gameFavoritRepository = GameFavoritRepository(gameFavoritDao)
 
+        gameDao = GameDatabase.getInstance(application).gameDao()
+        gameRepository = GameRepository(gameDao)
+
+        _gameDetailCache = gameRepository.getGameItem(id)
+
+        _gameDetailFavorit = gameFavoritRepository.getGameItem(id)
     }
 
     fun getDetailGame() {
@@ -40,7 +58,7 @@ class GameDetailViewModel(private var id: Int, application: Application) : Andro
                 response: Response<GameDetailResponse>
             ) {
                 if (response.isSuccessful) {
-                    _gameDetail.value = response.body()
+                    _gameDetailApi.value = response.body()
                 } else {
                     Log.e("GameDetailViewModel", "onFailure : ${response.message()}")
                 }
@@ -52,7 +70,7 @@ class GameDetailViewModel(private var id: Int, application: Application) : Andro
         })
     }
 
-    fun upsertGameFavorit(game: GameResponseItem) {
+    fun upsertGameFavorit(game: GameFavoritItem) {
         viewModelScope.launch {
             gameFavoritRepository.upsertGamesRepo(game)
         }

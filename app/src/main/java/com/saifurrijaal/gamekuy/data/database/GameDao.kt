@@ -17,6 +17,6 @@ interface GameDao {
     fun getGames() : LiveData<List<GameResponseItem>>
 
     @Query("SELECT * FROM gameItem WHERE id=:game_id")
-    fun getGame(game_id: Int) : List<GameResponseItem>
+    fun getGame(game_id: Int) : LiveData<List<GameResponseItem>>
 
 }
