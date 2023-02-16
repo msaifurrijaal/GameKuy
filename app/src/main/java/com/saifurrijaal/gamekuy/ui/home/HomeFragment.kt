@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
+import com.saifurrijaal.gamekuy.adapter.GameAdapter
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.FragmentHomeBinding
 import com.saifurrijaal.gamekuy.ui.gamedetail.GameDetailActivity
@@ -21,7 +22,7 @@ import kotlin.random.Random
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var allGamesAdapter: AllGamesAdapter
+    private lateinit var allGamesAdapter: GameAdapter
     private lateinit var listGameHome: List<GameResponseItem>
     val homeMvvm by viewModels<HomeViewModel>()
 
@@ -102,7 +103,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setAllGamesRV() {
-        allGamesAdapter = AllGamesAdapter()
+        allGamesAdapter = GameAdapter()
         binding.rvListGames.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = allGamesAdapter
