@@ -2,4 +2,19 @@
     <string name="app_name">GameKuy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="genre">Genre</string>
+    <string name="platform">Platform</string>
+    <string name="publisher">Publihser</string>
+    <string name="developer">Developer</string>
+    <string name="save">Save</string>
+    <string name="add_to_favorite">Click Love Icon twice to add to favorite!</string>
+    <string name="about_game">GameKuy is a platform that provides information about various games from all over the world. Users can find detailed information about a game such as its title, game developer, publisher, description, and much more.\n\nWith this application, the developer hopes that users can be assisted in finding references about the user\'s favorite games.\n\nThank You!</string>
+    <string name="developed_by">Developed by Muchammad Saifurrijaal</string>
+
+
+
+
+
 </resources>

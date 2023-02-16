@@ -35,17 +35,19 @@
 
             <TextView
                 android:id="@+id/tv_game_title"
-                android:layout_width="330dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Overwatch"
                 android:maxLines="1"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/h6"
-                android:layout_marginStart="@dimen/small_50"
                 android:textStyle="bold"
+                android:layout_marginStart="@dimen/small_50"
+                android:layout_marginEnd="@dimen/normal_125"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit"/>
 
             <ImageView
                 android:id="@+id/btn_delete"
@@ -53,6 +55,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_edit" />
+
+            <ImageView
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:layout_marginEnd="@dimen/normal_100"
+                app:layout_constraintEnd_toStartOf="@+id/btn_delete"
                 app:layout_constraintTop_toTopOf="@+id/tv_game_title"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_game_title" />
 

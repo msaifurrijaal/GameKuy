@@ -33,4 +33,10 @@ class GameFavoritViewModel(application: Application) : AndroidViewModel(applicat
             gameFavoritRepository.deleteGameRepo(game)
         }
     }
+
+    fun updateGameFavorite(game: GameFavoritItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            gameFavoritRepository.upsertGamesRepo(game)
+        }
+    }
 }

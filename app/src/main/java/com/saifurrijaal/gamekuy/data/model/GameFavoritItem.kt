@@ -1,9 +1,12 @@
 package com.saifurrijaal.gamekuy.data.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "gameFavoritItem")
 data class GameFavoritItem (
 
@@ -40,4 +43,4 @@ data class GameFavoritItem (
 
     @field:SerializedName("platform")
     val platform: String? = null
-)
+) : Parcelable {}

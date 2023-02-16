@@ -13,6 +13,7 @@ class AllGamesFavoritAdapter : RecyclerView.Adapter<AllGamesFavoritAdapter.ViewH
 
     lateinit var onItemClick: ((GameFavoritItem) -> Unit)
     lateinit var onDeleteClick: ((GameFavoritItem) -> Unit)
+    lateinit var onUpdateClick: ((GameFavoritItem) -> Unit)
 
     private var gamesList = ArrayList<GameFavoritItem>()
 
@@ -43,6 +44,10 @@ class AllGamesFavoritAdapter : RecyclerView.Adapter<AllGamesFavoritAdapter.ViewH
 
         holder.binding.btnDelete.setOnClickListener {
             onDeleteClick.invoke(game)
+        }
+
+        holder.binding.btnEdit.setOnClickListener {
+            onUpdateClick.invoke(game)
         }
     }
 

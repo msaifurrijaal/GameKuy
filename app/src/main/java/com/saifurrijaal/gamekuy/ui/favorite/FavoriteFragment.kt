@@ -1,5 +1,6 @@
 package com.saifurrijaal.gamekuy.ui.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import com.saifurrijaal.gamekuy.data.model.GameFavoritItem
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.FragmentFavoriteBinding
 import com.saifurrijaal.gamekuy.databinding.FragmentHomeBinding
+import com.saifurrijaal.gamekuy.ui.gamedetail.GameDetailActivity
+import com.saifurrijaal.gamekuy.util.Constant
 
 class FavoriteFragment : Fragment() {
 
@@ -43,10 +46,30 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadingCase()
         setupGameFavoritRV()
         observerAllGamesFavorit()
+        onItemGameFavoriteClick()
         onDeleteIconClick()
+        onUpdateIconClick()
 
+    }
+
+    private fun onItemGameFavoriteClick() {
+        allGamesAdapter.onItemClick = {
+            startActivity(Intent(activity, GameDetailActivity::class.java)
+                .putExtra(Constant.GAME_ID, it.id)
+                .putExtra(Constant.TYPE_INTENT, Constant.GAME_FAV)
+            )
+        }
+    }
+
+    private fun onUpdateIconClick() {
+        allGamesAdapter.onUpdateClick = {
+            startActivity(Intent(activity, EditFavoritActivity::class.java)
+                .putExtra(Constant.GAME_OBJECT, it)
+            )
+        }
     }
 
     private fun onDeleteIconClick() {
@@ -59,8 +82,12 @@ class FavoriteFragment : Fragment() {
     private fun observerAllGamesFavorit() {
         viewModel.allGames.observe(viewLifecycleOwner, object : Observer<List<GameFavoritItem>> {
             override fun onChanged(games: List<GameFavoritItem>?) {
-                allGamesAdapter.setGames(games!!)
-                Log.d("FavoritFragment", "${games}")
+                games?.let {
+                    if (games.size != 0) {
+                        responseCase()
+                    }
+                    allGamesAdapter.setGames(games)
+                }
             }
         })
     }
@@ -70,6 +97,22 @@ class FavoriteFragment : Fragment() {
         binding.rvAllGames.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = allGamesAdapter
+        }
+    }
+
+    private fun loadingCase() {
+        binding.apply {
+            rvAllGames.visibility = View.INVISIBLE
+            ivEmpty.visibility = View.VISIBLE
+            tvEmpty.visibility = View.VISIBLE
+        }
+    }
+
+    private fun responseCase() {
+        binding.apply {
+            rvAllGames.visibility = View.VISIBLE
+            ivEmpty.visibility = View.INVISIBLE
+            tvEmpty.visibility = View.INVISIBLE
         }
     }
 

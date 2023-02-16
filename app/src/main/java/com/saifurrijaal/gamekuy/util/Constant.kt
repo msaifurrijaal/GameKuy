@@ -9,4 +9,5 @@ object Constant {
     val GAME_CACHE = "gameCache"
     val GAME_FAV = "gameFav"
     val GAME_API = "gameApi"
+    val GAME_OBJECT = "gameObject"
 }

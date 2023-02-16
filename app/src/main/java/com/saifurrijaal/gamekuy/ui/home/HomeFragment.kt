@@ -90,12 +90,14 @@ class HomeFragment : Fragment() {
             listGameHome = games.take(10)
             allGamesAdapter.setGames(listGameHome)
 
+            val game = games[randomInt]
+
             Glide.with(this)
-                .load(games[randomInt].thumbnail)
+                .load(game.thumbnail)
                 .into(binding.ivMainPoster)
 
-            binding.tvMainPosterTitleGame.text = games[randomInt].title
-            onMainPosterClick(randomInt)
+            binding.tvMainPosterTitleGame.text = game.title
+            onMainPosterClick(game.id!!)
         })
     }
 

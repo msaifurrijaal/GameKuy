@@ -80,6 +80,24 @@ class GameDetailActivity : AppCompatActivity() {
                 override fun onChanged(games: List<GameResponseItem>?) {
                     responseCase()
                     var game = games!![0]
+
+                    Glide.with(this@GameDetailActivity)
+                        .load(game.thumbnail)
+                        .into(binding.imgMovieDetail)
+
+                    binding.apply {
+                        collapsingToolbar.title = game.title
+                        collapsingToolbar.setCollapsedTitleTextColor(resources.getColor(R.color.white))
+                        collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
+
+                        tvPlatform.text = "Platform : ${game.platform}"
+                        tvDescription.text = game.shortDescription
+                        tvDeveloper.text = "Developer : ${game.developer}"
+                        tvGenre.text = "Genre : ${game.genre}"
+                        tvPublisher.text = "Publisher : ${game.publisher}"
+                        tvReleaseDate.text = "Release : ${game.releaseDate}"
+                    }
+
                     gameToSave = GameFavoritItem(
                         shortDescription = game.shortDescription,
                         thumbnail = game.thumbnail,
@@ -93,22 +111,9 @@ class GameDetailActivity : AppCompatActivity() {
                         title = game.title,
                         platform = game.platform
                     )
+
                     officialPageLink = game.gameUrl!!
 
-                    Glide.with(this@GameDetailActivity)
-                        .load(game.thumbnail)
-                        .into(binding.imgMovieDetail)
-
-                    binding.collapsingToolbar.title = game.title
-                    binding.collapsingToolbar.setCollapsedTitleTextColor(resources.getColor(R.color.white))
-                    binding.collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
-
-                    binding.tvPlatform.text = "Platform : ${game.platform}"
-                    binding.tvDescription.text = game.shortDescription
-                    binding.tvDeveloper.text = "Developer : ${game.developer}"
-                    binding.tvGenre.text = "Genre : ${game.genre}"
-                    binding.tvPublisher.text = "Publisher : ${game.publisher}"
-                    binding.tvReleaseDate.text = "Release : ${game.releaseDate}"
                 }
             })
         }
@@ -116,21 +121,22 @@ class GameDetailActivity : AppCompatActivity() {
             viewModel.gameDetailApi.observe(this, object : Observer<GameDetailResponse> {
                 override fun onChanged(game: GameDetailResponse?) {
                     responseCase()
-                    officialPageLink = game!!.gameUrl!!
                     Glide.with(this@GameDetailActivity)
-                        .load(game.thumbnail)
+                        .load(game!!.thumbnail)
                         .into(binding.imgMovieDetail)
 
-                    binding.collapsingToolbar.title = game.title
-                    binding.collapsingToolbar.setCollapsedTitleTextColor(resources.getColor(R.color.white))
-                    binding.collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
+                    binding.apply {
+                        collapsingToolbar.title = game.title
+                        collapsingToolbar.setCollapsedTitleTextColor(resources.getColor(R.color.white))
+                        collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
 
-                    binding.tvPlatform.text = "Platform : ${game.platform}"
-                    binding.tvDescription.text = game.description
-                    binding.tvDeveloper.text = "Developer : ${game.developer}"
-                    binding.tvGenre.text = "Genre : ${game.genre}"
-                    binding.tvPublisher.text = "Publisher : ${game.publisher}"
-                    binding.tvReleaseDate.text = "Release : ${game.releaseDate}"
+                        tvPlatform.text = "Platform : ${game.platform}"
+                        tvDescription.text = game.description
+                        tvDeveloper.text = "Developer : ${game.developer}"
+                        tvGenre.text = "Genre : ${game.genre}"
+                        tvPublisher.text = "Publisher : ${game.publisher}"
+                        tvReleaseDate.text = "Release : ${game.releaseDate}"
+                    }
 
                     gameToSave = GameFavoritItem(
                         shortDescription = game.description,
@@ -145,10 +151,52 @@ class GameDetailActivity : AppCompatActivity() {
                         title = game.title,
                         platform = game.platform
                     )
+
+                    officialPageLink = game!!.gameUrl!!
+
                 }
             })
         } else if (typeIntent.equals(Constant.GAME_FAV)) {
+            viewModel.gameDetailFavorit.observe(this, object : Observer<List<GameFavoritItem>> {
+                override fun onChanged(games: List<GameFavoritItem>?) {
+                    responseCase()
+                    var game = games!![0]
 
+                    Glide.with(this@GameDetailActivity)
+                        .load(game.thumbnail)
+                        .into(binding.imgMovieDetail)
+
+                    binding.apply {
+                        collapsingToolbar.title = game.title
+                        collapsingToolbar.setCollapsedTitleTextColor(resources.getColor(R.color.white))
+                        collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
+
+                        tvPlatform.text = "Platform : ${game.platform}"
+                        tvDescription.text = game.shortDescription
+                        tvDeveloper.text = "Developer : ${game.developer}"
+                        tvGenre.text = "Genre : ${game.genre}"
+                        tvPublisher.text = "Publisher : ${game.publisher}"
+                        tvReleaseDate.text = "Release : ${game.releaseDate}"
+                    }
+
+                    gameToSave = GameFavoritItem(
+                        shortDescription = game.shortDescription,
+                        thumbnail = game.thumbnail,
+                        gameUrl = game.gameUrl,
+                        releaseDate = game.releaseDate,
+                        freetogameProfileUrl = game.freetogameProfileUrl,
+                        genre = game.genre,
+                        publisher = game.publisher,
+                        developer = game.developer,
+                        id = game.id,
+                        title = game.title,
+                        platform = game.platform
+                    )
+
+                    officialPageLink = game.gameUrl!!
+
+                }
+            })
         }
     }
 
@@ -156,6 +204,7 @@ class GameDetailActivity : AppCompatActivity() {
         binding.apply {
             progressBar.visibility = View.VISIBLE
             tvPlatform.visibility = View.INVISIBLE
+            tvClickToFavorite.visibility = View.INVISIBLE
             tvOverviewTitle.visibility = View.INVISIBLE
             tvDescription.visibility = View.INVISIBLE
             tvReleaseDate.visibility = View.INVISIBLE
@@ -170,6 +219,7 @@ class GameDetailActivity : AppCompatActivity() {
         binding.apply {
             progressBar.visibility = View.INVISIBLE
             tvPlatform.visibility = View.VISIBLE
+            tvClickToFavorite.visibility = View.VISIBLE
             tvOverviewTitle.visibility = View.VISIBLE
             tvDescription.visibility = View.VISIBLE
             tvReleaseDate.visibility = View.VISIBLE
