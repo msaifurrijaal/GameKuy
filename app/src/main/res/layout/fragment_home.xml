@@ -59,29 +59,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        tools:src="@tools:sample/backgrounds/scenic"/>
+                        android:src="@drawable/explore"/>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="200dp"
-                        android:layout_height="@dimen/large_125"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/normal_75"
                         android:layout_gravity="right|bottom"
                         android:gravity="center"
                         android:layout_marginEnd="@dimen/normal_125"
                         android:layout_marginBottom="@dimen/normal_125"
-                        app:cardBackgroundColor="@color/colorPrimary" >
+                        app:cardBackgroundColor="@color/colorPrimary">
 
                         <TextView
                             android:id="@+id/tv_main_poster_title_game"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:text="Overwatch"
+                            android:text="Explore All Games"
                             android:textStyle="bold"
                             android:maxLines="1"
                             android:fontFamily="@font/poppins_bold"
                             android:textSize="@dimen/h6"
                             android:textColor="@color/white"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:paddingTop="@dimen/small_50"
+                            android:paddingBottom="@dimen/small_50"
+                            android:paddingLeft="@dimen/normal_100"
+                            android:paddingRight="@dimen/normal_100"/>
 
                     </androidx.cardview.widget.CardView>
 

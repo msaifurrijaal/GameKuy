@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +37,29 @@ class GameCategoryActivity : AppCompatActivity() {
         setGameCategoryRV()
         observerAllGameByCategory()
         onItemGameCategoryClick()
-        closeActivity()
+        onAction()
 
+    }
+
+    private fun onAction() {
+        binding.apply {
+            toolbar.setNavigationOnClickListener {
+                finish()
+            }
+
+            etSearchMain.addTextChangedListener {
+                gameCategoryAdapter.filter.filter(it.toString())
+            }
+
+            etSearchMain.setOnEditorActionListener {_, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val dataSearch = etSearchMain.text.toString().trim()
+                    gameCategoryAdapter.filter.filter(dataSearch)
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener true
+            }
+        }
     }
 
     private fun onItemGameCategoryClick() {
@@ -46,12 +69,6 @@ class GameCategoryActivity : AppCompatActivity() {
                     .putExtra(Constant.GAME_ID, it.id)
                     .putExtra(Constant.TYPE_INTENT, Constant.GAME_API)
             )
-        }
-    }
-
-    private fun closeActivity() {
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
         }
     }
 
@@ -68,7 +85,7 @@ class GameCategoryActivity : AppCompatActivity() {
         viewModel.gameCategory.observe(this, object : Observer<List<GameResponseItem>> {
             override fun onChanged(games: List<GameResponseItem>?) {
                 responseCase()
-                gameCategoryAdapter.setGames(games!!)
+                gameCategoryAdapter.gamesList = games!!.toMutableList()
             }
         })
     }

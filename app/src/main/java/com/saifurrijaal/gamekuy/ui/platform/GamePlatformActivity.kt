@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,8 +36,29 @@ class GamePlatformActivity : AppCompatActivity() {
         setGamePlatformRV()
         observerAllGamesByPlatform()
         onItemPlatformGameClick()
-        closeActivity()
+        onAction()
 
+    }
+
+    private fun onAction() {
+        binding.apply {
+            toolbar.setNavigationOnClickListener {
+                finish()
+            }
+
+            etSearchMain.addTextChangedListener {
+                gamePlatformAdapter.filter.filter(it.toString())
+            }
+
+            etSearchMain.setOnEditorActionListener {_, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val dataSearch = etSearchMain.text.toString().trim()
+                    gamePlatformAdapter.filter.filter(dataSearch)
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener true
+            }
+        }
     }
 
     private fun onItemPlatformGameClick() {
@@ -48,17 +71,11 @@ class GamePlatformActivity : AppCompatActivity() {
         }
     }
 
-    private fun closeActivity() {
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
-        }
-    }
-
     private fun observerAllGamesByPlatform() {
         viewModel.gamePlatform.observe(this, object : Observer<List<GameResponseItem>> {
             override fun onChanged(games: List<GameResponseItem>?) {
                 responseCase()
-                gamePlatformAdapter.setGames(games!!)
+                gamePlatformAdapter.gamesList = games!!.toMutableList()
             }
         })
     }

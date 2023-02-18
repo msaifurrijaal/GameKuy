@@ -59,6 +59,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_all_games"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+            <EditText
+                android:id="@+id/et_search_main"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_search_height"
+                android:layout_marginTop="@dimen/normal_100"
+                android:background="@drawable/bg_edit_text"
+                android:elevation="@dimen/small_50"
+                android:drawableEnd="@drawable/ic_search"
+                android:drawableTint="@android:color/darker_gray"
+                android:paddingStart="@dimen/normal_100"
+                android:paddingEnd="@dimen/normal_100"
+                android:hint="@string/search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/tv_tagline"
+                app:layout_constraintEnd_toEndOf="@+id/tv_tagline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tagline"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_all_games"
                 android:layout_width="0dp"
@@ -66,7 +84,7 @@
                 android:layout_marginTop="@dimen/normal_100"
                 app:layout_constraintEnd_toEndOf="@id/tv_all_games"
                 app:layout_constraintStart_toStartOf="@+id/tv_all_games"
-                app:layout_constraintTop_toBottomOf="@+id/tv_tagline"
+                app:layout_constraintTop_toBottomOf="@+id/et_search_main"
                 tools:listitem="@layout/list_item_game" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
 import com.saifurrijaal.gamekuy.adapter.GameAdapter
 import com.saifurrijaal.gamekuy.data.model.GameResponseItem
 import com.saifurrijaal.gamekuy.databinding.FragmentHomeBinding
@@ -62,18 +60,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onMainPosterClick(id: Int) {
-        binding.ivMainPoster.setOnClickListener {
-            startActivity(Intent(activity, GameDetailActivity::class.java)
-                .putExtra(Constant.GAME_ID, id)
-                .putExtra(Constant.TYPE_INTENT, Constant.GAME_CACHE))
-        }
-    }
-
     private fun seeAllGames() {
-        binding.tvSeeAll.setOnClickListener {
-            startActivity(Intent(activity, AllGameActivity::class.java))
+        binding.apply {
+            tvSeeAll.setOnClickListener {
+                startActivity(Intent(activity, AllGameActivity::class.java))
+            }
+
+            ivMainPoster.setOnClickListener {
+                listGameHome?.let {
+                    startActivity(Intent(activity, AllGameActivity::class.java))
+                }
+            }
         }
+
     }
 
     private fun onItemGameClick() {
@@ -90,15 +89,6 @@ class HomeFragment : Fragment() {
         homeMvvm.allGames.observe(viewLifecycleOwner, { games ->
             listGameHome = games.take(10)
             allGamesAdapter.setGames(listGameHome)
-
-            val game = games[randomInt]
-
-            Glide.with(this)
-                .load(game.thumbnail)
-                .into(binding.ivMainPoster)
-
-            binding.tvMainPosterTitleGame.text = game.title
-            onMainPosterClick(game.id!!)
         })
     }
 

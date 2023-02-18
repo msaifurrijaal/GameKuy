@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saifurrijaal.gamekuy.adapter.AllGamesAdapter
@@ -28,13 +30,28 @@ class AllGameActivity : AppCompatActivity() {
         setAllGamesRV()
         observerAllGames()
         onItemGameClick()
-        closeActivity()
+        onAction()
 
     }
 
-    private fun closeActivity() {
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
+    private fun onAction() {
+        binding.apply {
+            toolbar.setNavigationOnClickListener {
+                finish()
+            }
+
+            etSearchMain.addTextChangedListener {
+                allGamesAdapter.filter.filter(it.toString())
+            }
+
+            etSearchMain.setOnEditorActionListener {_, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val dataSearch = etSearchMain.text.toString().trim()
+                    allGamesAdapter.filter.filter(dataSearch)
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener true
+            }
         }
     }
 
@@ -52,7 +69,7 @@ class AllGameActivity : AppCompatActivity() {
         viewModel.allGames.observe(this, object : Observer<List<GameResponseItem>> {
             override fun onChanged(games: List<GameResponseItem>?) {
                 responseCase()
-                allGamesAdapter.setGames(games!!)
+                allGamesAdapter.gamesList = games!!.toMutableList()
             }
         })
     }
