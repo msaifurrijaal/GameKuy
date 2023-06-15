@@ -2,14 +2,13 @@ package com.saifurrijaal.gamekuy.ui.gamedetail
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.saifurrijaal.gamekuy.R
 import com.saifurrijaal.gamekuy.data.model.GameDetailResponse
 import com.saifurrijaal.gamekuy.data.model.GameFavoritItem

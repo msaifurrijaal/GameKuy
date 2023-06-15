@@ -13,9 +13,8 @@
     <string name="add_to_favorite">Click Love Icon twice to add to favorite!</string>
     <string name="about_game">GameKuy is a platform that provides information about various games from all over the world. Users can find detailed information about a game such as its title, game developer, publisher, description, and much more.\n\nWith this application, the developer hopes that users can be assisted in finding references about the user\'s favorite games.\n\nThank You!</string>
     <string name="developed_by">Developed by Muchammad Saifurrijaal</string>
-
-
-
+    <string name="default_text">-</string>
+    <string name="error">Error</string>
 
 
 </resources>
